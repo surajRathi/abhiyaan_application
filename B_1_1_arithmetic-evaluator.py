@@ -1,6 +1,9 @@
 #! /usr/bin/env python
 
 # TODO: Support unary minus.
+# Assumptions:
+# The input has reasonable bounds on magnitude.
+# No unary operators.
 
 # Higher value indicates higher precedence.
 precedence = {

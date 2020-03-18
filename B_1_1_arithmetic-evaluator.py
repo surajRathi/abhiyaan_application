@@ -1,5 +1,7 @@
 #! /usr/bin/env python
 
+# TODO: Support unary minus.
+
 # Higher value indicates higher precedence.
 precedence = {
     '+': 2,
@@ -19,14 +21,22 @@ binary_operators = {  # IMP: Stack pops second operand before first!!!!
 }
 
 openers = '([{'
-for opener in openers:
-    precedence[opener] = 0
 closers = ')]}'
 
-nums = '123456789.'
+for opener in openers:
+    precedence[opener] = 0
+
+nums = '0123456789.e'
 
 symbols = ''.join(binary_operators.keys()) + openers + closers
 valid_characters = symbols + nums
+
+intro_string = """\
+Arithmetic Evaluator.
+Supports addition(+), subtraction(-), multiplication(*), division(/), and power(^) 
+of floating point numbers. Precedence can be altered with '()', '[]', or '{}'.
+Supports 'e' notation for numbers, and previous answer substitution with '!!'.
+Does not support negative inputs.. Use EOF (^D) to quit."""
 
 
 # Could use a logic which alternates between reading symbols and numbers to verify the expression.
@@ -34,8 +44,8 @@ def tokenizer(expr: str, num_chars=nums):  # expr: Iterable[char] -> Generator[U
     """A generator which takes a string and breaks it down into tokens."""
     i = 0
     while i < len(expr):
-        i_0 = i
         if expr[i] in num_chars:
+            i_0 = i
             while (i < len(expr)) and (expr[i] in num_chars):
                 i += 1
             yield float(expr[i_0:i])
@@ -57,15 +67,18 @@ def evaluate(expr: str) -> float:
     if not expr:
         return float('NaN')  # raise error instead?
 
+    # 'Stacks'
     operators = []
     operands = []
 
     try:
         for t in tokenizer(expr):
+
             if isinstance(t, float):
                 operands.append(t)
             elif t in openers:
                 operators.append(t)
+
             elif t in binary_operators:
                 while operators and precedence[operators[-1]] >= precedence[t]:
                     operands.append(binary_operators[operators.pop()](operands.pop(), operands.pop()))
@@ -80,7 +93,7 @@ def evaluate(expr: str) -> float:
 
     except ArithmeticError as e:
         raise e
-    except IndexError:
+    except (ValueError, IndexError):  # One of the stacks runs out, i.e. invalid expression structure.
         raise InvalidExpressionError()
 
     #  assert (len(operands) == 1)
@@ -88,15 +101,22 @@ def evaluate(expr: str) -> float:
 
 
 def main():
-    print('Arithmetic evaluator.')
+    print(intro_string)
+
+    ans = 0.0  # Used for previous answer substitution.
+
     try:
         while True:
             print()
             print('> ', end='')
             try:
-                print(evaluate(input()))
+                ans = evaluate(
+                    input().replace('!!', str(ans), -1)
+                )
+                print(ans)
             except (ArithmeticError, InvalidExpressionError):
                 print("Error.")
+                ans = 0.0
     except EOFError:
         pass
 

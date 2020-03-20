@@ -28,7 +28,7 @@ def simple_get_dominant_color(img):
 
 
 def main():
-    for pic in (cv.imread(f'{i}.png') for i in range(1, 4)):
+    for pic in (cv.imread(f'sample_images/{i}.png') for i in range(1, 4)):
         print(get_dominant_color(pic))
 
 

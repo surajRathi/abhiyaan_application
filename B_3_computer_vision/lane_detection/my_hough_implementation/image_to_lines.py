@@ -1,9 +1,8 @@
 #! /usr/bin/env python
 # Prompts for an image and uses hough transform to superimpose lines on it.
-import numpy as np
-import matplotlib.pyplot as plt
 import matplotlib as mpl
-
+import matplotlib.pyplot as plt
+import numpy as np
 from lines import Group
 
 mpl.rcParams['toolbar'] = 'None'
@@ -43,7 +42,8 @@ def peaks(locs, max_dist):
 
     for x, y in zip(*locs):
         for group in groups:
-            if group.do((x, y)): break
+            if group.do((x, y)):
+                break
         else:
             groups.append(Group((x, y), epsilon))
 
@@ -51,7 +51,8 @@ def peaks(locs, max_dist):
 
 
 def hough_transform(points, no_theta=1000, no_rho=1000, frac=0.6, peak_distance=25, data_shape=None):
-    if not data_shape: data_shape = np.max(points, axis=1)
+    if not data_shape:
+        data_shape = np.max(points, axis=1)
 
     thetas = np.linspace(-np.pi / 2, np.pi / 2, no_theta)
 
@@ -61,7 +62,8 @@ def hough_transform(points, no_theta=1000, no_rho=1000, frac=0.6, peak_distance=
     hist_space = np.zeros((no_theta, no_rho))
     multiplier = no_rho * np.array([np.cos(thetas), np.sin(thetas)])
 
-    if not isinstance(points, np.ndarray): points = np.array(points)
+    if not isinstance(points, np.ndarray):
+        points = np.array(points)
 
     rho_calc = (no_rho / 2 + (points.T @ multiplier) / (2 * max_rho)).astype('int')
 
@@ -85,9 +87,9 @@ def show(img, thetas, rhos):
         x = np.linspace(0, img.T.shape[0])
         return x, r / np.sin(theta) - x / np.tan(theta)
 
-    ### Because of imshow, whole plot is bloody transposed, thus we must swap x and y coords of line
-    for l in zip(thetas, rhos):
-        plt.plot(*(line(*l)[::-1]), color="white", alpha=0.5, linewidth=5)
+    # Because of imshow, whole plot is bloody transposed, thus we must swap x and y coords of line
+    for lin in zip(thetas, rhos):
+        plt.plot(*(line(*lin)[::-1]), color="white", alpha=0.5, linewidth=5)
 
     plt.imshow(img)  # q , origin='lower', alpha=1)
 

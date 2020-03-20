@@ -16,7 +16,7 @@ class Group:
         self.yrange = np.ones(2) * point[1]
 
     @staticmethod
-    def distance(P1, P2, /):
+    def distance(P1, P2):
         """Manhattan distance."""
         return abs(P1[0] - P2[0]) + abs(P1[1] - P2[1])
 
@@ -139,9 +139,8 @@ class Lines:
         if np.abs(theta) < np.pi / 2:
             return np.clip((r / np.cos(theta) - self.line_y * np.tan(theta)).astype(int), 0, self.frame_shape[0] - 1) \
                 , self.line_y, 'y_wise'
-        return self.line_x, \
-               np.clip((r / np.sin(theta) - self.line_x / np.tan(theta)).astype(int), 0,
-                       self.frame_shape[1] - 1), 'x_wise'
+        return self.line_x, np.clip((r / np.sin(theta) - self.line_x / np.tan(theta)).astype(int), 0,
+                                    self.frame_shape[1] - 1), 'x_wise'
 
     def transform(self, frame):
         """Detect and write lines to a frame."""

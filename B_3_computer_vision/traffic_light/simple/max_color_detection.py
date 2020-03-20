@@ -1,9 +1,5 @@
 #! /usr/bin/env python
 
-# Could maybe use a blob_detection algorithm instead.
-# But no need to overcomplicate a problem.
-
-
 import cv2 as cv
 import numpy as np
 

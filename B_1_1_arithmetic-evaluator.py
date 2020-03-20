@@ -36,6 +36,7 @@ valid_characters = symbols + nums
 
 intro_string = """\
 Arithmetic Evaluator.
+
 Supports addition(+), subtraction(-), multiplication(*), division(/), and power(^) 
 of floating point numbers. Precedence can be altered with '()', '[]', or '{}'.
 Supports 'e' notation for numbers, and previous answer substitution with '!!'.

@@ -28,7 +28,7 @@ def lines(name):
     edge = cv2.Canny(img, 2150, 2400, True, 5)
     masked = (edge * mask).astype(np.uint8)
 
-    detected_lines = cv2.HoughLinesP(masked, 20, np.pi / 90, 2, minLineLength=150, maxLineGap=100)
+    detected_lines = cv2.HoughLinesP(masked, 5, np.pi / 90, 2, minLineLength=150, maxLineGap=60)
 
     """ # The below addition does reduce the number of lines but it doesnt give endpoints.
     points = lines.reshape(-1, 1, 2)
@@ -39,9 +39,10 @@ def lines(name):
     """
 
     c = color_iter()
-    for (x1, y1, x2, y2), in detected_lines:
-        cv2.line(img, (x1, y1), (x2, y2), next(c), 10)
-        print(x1, x2, y1, y2)
+    if detected_lines is not None:
+        for (x1, y1, x2, y2), in detected_lines:
+            cv2.line(img, (x1, y1), (x2, y2), next(c), 10)
+            print(x1, x2, y1, y2)
 
     fig, ax = plt.subplots(2)
     ax[0].imshow((edge * (0.2 + 0.8 * mask)).astype(np.int32))

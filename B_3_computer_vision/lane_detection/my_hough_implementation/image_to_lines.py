@@ -42,7 +42,7 @@ def peaks(locs, max_dist):
 
     for x, y in zip(*locs):
         for group in groups:
-            if group.do((x, y)):
+            if group.get_dominant_color((x, y)):
                 break
         else:
             groups.append(Group((x, y), epsilon))

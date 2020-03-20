@@ -1,13 +1,17 @@
 #! /usr/bin/env python
-import cv2 as cv
-import numpy as np
 import os
+
+import cv2 as cv
 
 FILE = './boxes.csv'
 SKIPPED = './skipped.list'
 FOLDER = './data_set'
 
 WINDOW = 'Box Maker'
+
+out_file = None
+cur_img = None
+img_iter = None
 
 # FORMAT: IMG_NUM, x1, x2, y1, y2
 x_0, y_0 = 0, 0

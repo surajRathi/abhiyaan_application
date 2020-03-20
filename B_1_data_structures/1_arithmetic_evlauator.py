@@ -88,8 +88,8 @@ def evaluate(expr: str) -> float:
                     operands.append(binary_operators[operators.pop()](operands.pop(), operands.pop()))
                 operators.append(t)
             else:
-                opener = openers[closers.index(t)]
-                while (op := operators.pop()) != opener:
+                corresponding_opener = openers[closers.index(t)]
+                while (op := operators.pop()) != corresponding_opener:
                     operands.append(binary_operators[op](operands.pop(), operands.pop()))
 
         while operators:

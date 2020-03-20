@@ -7,7 +7,7 @@ Suraj Rathi
 **Roll No:**  
 ME19B177  
 
-**Previous Expierence:**  
+**Previous Experience:**  
 <hl/>
 - Blah Blah
 - Da Da

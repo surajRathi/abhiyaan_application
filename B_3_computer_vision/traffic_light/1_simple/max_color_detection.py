@@ -21,8 +21,8 @@ def get_dominant_color(img):
 
 
 def simple_get_dominant_color(img):
-    img[:, :, 0] = np.mean(img[:, :, 1:], axis=2)  # Convert to YGR
-    sums = np.sum(np.sum(img, axis=0), axis=0)  # Find the amount of Yellow, Blue, and Red in the image.
+    img[:, :, 0] = np.mean(img[:, :, 1:], axis=2)  # Calculate yellow as average of red and green.
+    sums = np.sum(np.sum(img, axis=0), axis=0)  # Find the amount of Yellow, Green, and Red in the image.
     print(sums / 1000)
     print(np.argmax(sums))
     return color_names[np.argmax(sums)]

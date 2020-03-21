@@ -7,9 +7,9 @@ import os
 
 import cv2 as cv
 
-FILE = './boxes.csv'
+FILE = 'boxes.csv'
 SKIPPED = './skipped.list'
-FOLDER = './data_set'
+FOLDER = '../data_set'
 
 WINDOW = 'Box Maker'
 

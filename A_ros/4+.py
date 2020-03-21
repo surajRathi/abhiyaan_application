@@ -1,12 +1,13 @@
 #! /usr/bin/env python
 # Here we turn and move simultaneously
+# This isn't the best method, as we may want to move less fast while turning. But this seems better than 4.py
 
-import rospy
-from turtlesim.msg import Pose
-from geometry_msgs.msg import Twist
+from math import atan2, copysign
 
 import numpy as np
-from math import atan2, copysign
+import rospy
+from geometry_msgs.msg import Twist
+from turtlesim.msg import Pose
 
 pub = None
 

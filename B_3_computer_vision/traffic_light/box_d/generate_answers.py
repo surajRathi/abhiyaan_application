@@ -1,4 +1,8 @@
 #! /usr/bin/env python
+
+# This program can be used to get data for training the neural network.
+# However this needs to be altered as many pictures have more than one traffic light.
+
 import os
 
 import cv2 as cv

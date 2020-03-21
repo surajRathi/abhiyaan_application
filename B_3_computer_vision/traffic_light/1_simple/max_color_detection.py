@@ -1,4 +1,5 @@
 #! /usr/bin/env python
+# Maybe use largest blob detection to remove noise in more real life cases.
 
 import cv2 as cv
 import numpy as np

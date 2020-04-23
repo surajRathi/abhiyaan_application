@@ -32,4 +32,4 @@ _In Insti:_
 _Online:_
 - PadhAI: DL#101-108 Completed. Further courses in progress.
 
-    
+ I wasn't able to make JAUS++ part of the application work at all.

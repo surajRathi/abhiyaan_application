@@ -1,0 +1,22 @@
+<!-- Launches a turtlesim where one model follows the other. args: rviz, teleop -->
+<launch>
+    <node name="turtlesim" pkg="turtlesim" type="turtlesim_node"/>
+
+    <node name="turtle_spawner" pkg="rosservice" type="rosservice" args="call --wait /spawn 10.0 10.0 0.0 'abhiyaan'"/>
+
+
+    <node name="turtle_state_publisher" pkg="turtle_follower_cpp" type="state_publisher" args="turtle1 abhiyaan"
+          output="screen"/>
+
+    <node name="turtle_commander" pkg="turtle_follower_cpp" type="follower" args="turtle1 abhiyaan" output="screen"/>
+
+
+    <arg name="rviz" default="0"/>
+    <node name="turtle_rviz" pkg="rviz" type="rviz" args="-d $(find turtle_follower_cpp)/rviz/main.rviz" if="$(arg rviz)"/>
+
+    <arg name="teleop" default="0"/>
+    <node name="teleop" pkg="turtlesim" type="turtle_teleop_key" args="/turtle1/cmd_vel:=/abhiyaan/cmd_vel"
+          if="$(arg teleop)"/>
+
+</launch>
+
